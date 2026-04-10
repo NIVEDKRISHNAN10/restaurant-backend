@@ -1,12 +1,20 @@
 const mongoose = require("mongoose");
+const runSeeders = require("../seeders"); // 👈 import main seeder
 
 const connectDB = async () => {
   try {
-    console.log("Connecting to MongoDB...");
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("MongoDB Connected ✅");
+
+    console.log("MongoDB Connected");
+
+    // ✅ Run seeders here
+    if (process.env.SEED === "true") {
+      await runSeeders();
+    }
+
   } catch (error) {
-    console.error("MongoDB Error ❌", error);
+    console.error(error);
+    process.exit(1);
   }
 };
 

@@ -7,6 +7,9 @@ app.use(express.json());
 //login
 app.use("/api/auth", require("./routes/authRoutes"));
 
+//waiter
+app.use("/api/user", require("./routes/UserRoutes"));
+
 // Routes
 app.use("/api/orders", require("./routes/orderRoutes"));
 
