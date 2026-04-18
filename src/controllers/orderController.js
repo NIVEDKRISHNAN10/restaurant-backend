@@ -4,7 +4,6 @@ const Drinks = require("../models/Drinks");
 
 exports.createOrder = async (req, res) => {
   try {
-    console.log("create order");
     const order = new Order(req.body);
     await order.save();
 
