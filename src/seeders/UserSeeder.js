@@ -20,13 +20,13 @@ const seedUsers = async () => {
         name: "Waiter 1",
         email: "waiter1@test.com",
         password,
-        role: "Worker" // worker
+        role: "waiter" // worker
       },
       {
         name: "Waiter 2",
         email: "waiter2@test.com",
         password,
-        role: "Worker"
+        role: "waiter"
       }
     ]);
 

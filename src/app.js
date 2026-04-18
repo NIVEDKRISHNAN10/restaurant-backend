@@ -21,7 +21,7 @@ app.use(
 app.use(
   "/api/admin",
   authMiddleware,
-  roleMiddleware('admin'),
+  roleMiddleware('admin','waiter'),
   require("./routes/orderRoutes")
 );
 
