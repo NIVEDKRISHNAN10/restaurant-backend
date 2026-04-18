@@ -19,7 +19,7 @@ app.use(
 
 // Admin + Worker both can access orders
 app.use(
-  "/api/admin",
+  "/api/auth",
   authMiddleware,
   roleMiddleware('admin','waiter'),
   require("./routes/orderRoutes")

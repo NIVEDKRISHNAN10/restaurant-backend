@@ -2,6 +2,23 @@ const Order = require("../models/Order");
 const BarOrder = require("../models/Drinks");
 const Drinks = require("../models/Drinks");
 
+
+exports.createOrderGet = async (req, res) => {
+  try {
+    const order = await Order.find();
+    res.status(200).json({
+      message: "Orders fetched successfully",
+      order,
+      pagination: {
+        per_page: 25
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+}
 exports.createOrder = async (req, res) => {
   try {
     const order = new Order(req.body);
