@@ -1,17 +1,29 @@
 const express = require("express");
 
 const app = express();
+const authMiddleware = require("./middleware/authmidlleware");
+const roleMiddleware = require("./middleware/roleMiddleware");
 
 app.use(express.json());
 
-//login
+// Public routes (NO middleware)
 app.use("/api/auth", require("./routes/authRoutes"));
 
-//waiter
-app.use("/api/user", require("./routes/UserRoutes"));
+// Only waiter (worker)
+app.use(
+  "/api/user",
+  authMiddleware,
+  roleMiddleware('waiter'), // or "waiter" based on your role name
+  require("./routes/UserRoutes")
+);
 
-// Routes
-app.use("/api/orders", require("./routes/orderRoutes"));
+// Admin + Worker both can access orders
+app.use(
+  "/api/admin",
+  authMiddleware,
+  roleMiddleware('admin'),
+  require("./routes/orderRoutes")
+);
 
 app.get("/", (req, res) => {
   res.send("API Running...");

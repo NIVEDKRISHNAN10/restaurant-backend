@@ -9,9 +9,8 @@ const userSchema = new mongoose.Schema({
   minlength: 8
 },
   role: {
-    type: Number,
-    enum: [0,1],
-    default: 0
+    type: String,
+    default: 'worker'
   }
 }, { timestamps: true });
 
