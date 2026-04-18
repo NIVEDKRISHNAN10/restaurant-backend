@@ -4,9 +4,13 @@ const drinksSchema = new mangoose.Schema({
     name: String,
     price: Number,
     category: String,
-    '250ml': Number,
-    '500ml': Number,
-    '1L': Number
+    "volume": String,
+    "quantity": Number,
+    "pegs":{
+        type: Number,
+        required: false,
+    }
+
 } ,{ timestamps: true });
 
 module.exports = mangoose.model("Drinks", drinksSchema);

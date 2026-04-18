@@ -7,10 +7,15 @@ const seedProducts = async () => {
     console.log("Seeding products...");
 
     await Product.insertMany([
-      { name: "Beer", price: 10, category: "Alcohol", "250ml": 100, "500ml": 50, "1L": 30 },
-      { name: "Whiskey", price: 50, category: "Alcohol", "250ml": 50 ,"500ml": 30, "1L": 20 },
-      { name: "Vodka", price: 40, category: "Alcohol", "250ml": 50, "500ml": 30, "1L": 20 },
-      { name: "Coke", price: 5, category: "Soft Drink", "250ml": 100, "500ml": 50, "1L": 30 },
+      { name: "Beer", price: 10, category: "Alcohol", "volume":`'250ml'`,"quantity": 50, "pegs": 20 },
+      { name :'Beer', price: 15, category: "Alcohol", "volume":`'500ml'`,"quantity": 30, "pegs": 15 },
+      { name: "Beer", price: 20, category: "Alcohol", "volume":`'1L'`,"quantity": 20, "pegs": 10 },
+      { name :' whiskey', price: 50, category: "Alcohol", "volume":`'250ml'`,"quantity": 50, "pegs": 20 },
+      { name :' whiskey', price: 40, category: "Alcohol", "volume":`'500ml'`,"quantity": 30, "pegs": 15 },
+      { name :' whiskey', price: 50, category: "Alcohol", "volume":`'1L'`,"quantity": 20, "pegs": 10 },
+      { name: "Coke", price: 5, category: "Soft Drink", "volume":`'250ml'`,"quantity": 50 },
+      { name: "Coke", price: 10, category: "Soft Drink", "volume":`'500ml'`,"quantity": 30 },
+      { name: "Coke", price: 15, category: "Soft Drink", "volume":`'1L'`,"quantity": 20 },
     ]);
 
     console.log("Products seeded ✅");

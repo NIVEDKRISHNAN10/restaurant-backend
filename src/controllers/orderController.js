@@ -6,6 +6,7 @@ const Drinks = require("../models/Drinks");
 exports.createOrderGet = async (req, res) => {
   try {
     const order = await Order.find();
+    console.log(order);
     res.status(200).json({
       message: "Orders fetched successfully",
       order,
@@ -22,6 +23,13 @@ exports.createOrderGet = async (req, res) => {
 exports.createOrder = async (req, res) => {
   try {
     const order = new Order(req.body);
+    if(!req.body){
+      return res.status(400).json({ status: false,message: "the order is not found" });
+    }
+    console.log(order);
+    if(!req.body.drink_id){
+      return res.status(400).json({ status: false,message: "The Item is not selected" });
+    }
     await order.save();
 
     res.status(201).json({
