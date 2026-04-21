@@ -1,6 +1,7 @@
 const roleMiddleware = (...allowedRoles) => {
     return (req, res, next) => {
         try {
+            console.log(req.user);
             if (!req.user) {
                 return res.status(401).json({
                     success: false,
@@ -15,6 +16,7 @@ const roleMiddleware = (...allowedRoles) => {
             }
             next();
         } catch (error) {
+
             return res.status(500).json({
                 success: false,
                 message: "Server error"

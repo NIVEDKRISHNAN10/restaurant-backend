@@ -20,6 +20,29 @@ exports.createOrderGet = async (req, res) => {
     });
   }
 }
+
+exports.orderCreation = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).json({ status: false, message: "the order is not found" });
+  }
+  try {
+    const orderData = {
+      tableNumber: req.body.tableNumber,
+      items: req.body.items,
+      status: "pending"
+    }
+    const order = new Order(orderData);
+    await order.save();
+    res.status(200).json({
+      message: "Order created successfully",
+      order
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+}
 exports.createOrder = async (req, res) => {
   try {
     const order = new Order(req.body);
@@ -71,3 +94,17 @@ exports.createBarOrder = async (req, res) => {
     });
   }
 };
+
+const reducePegs  = async (orderId) => {
+  try {
+    const Orders =  Order.findById(orderId);
+    if(!Orders){
+      return res.status(400).json({ status: false,message: "the order is not found" });
+    }}
+    catch (error) {
+      res.status(500).json({
+        error: error.message
+      });
+    }
+}
+    

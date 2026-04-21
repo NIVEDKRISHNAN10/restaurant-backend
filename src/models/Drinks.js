@@ -4,9 +4,9 @@ const drinksSchema = new mangoose.Schema({
     name: String,
     price: Number,
     category: String,
-    "volume": String,
-    "quantity": Number,
-    "pegs":{
+    volume: String,
+    quantity: Number,
+    pegs:{
         type: Number,
         required: false,
     }
