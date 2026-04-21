@@ -33,6 +33,8 @@ exports.orderCreation = async (req, res) => {
     }
     const order = new Order(orderData);
     await order.save();
+    await printOrder(order);
+
     res.status(200).json({
       message: "Order created successfully",
       order
