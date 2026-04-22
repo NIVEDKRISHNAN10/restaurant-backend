@@ -1,6 +1,8 @@
 const Order = require("../models/Order");
 const BarOrder = require("../models/Drinks");
 const Drinks = require("../models/Drinks");
+const OrderItem = require("../models/orderItems");
+const printOrder = require("../utils/printOrder");
 
 
 exports.createOrderGet = async (req, res) => {
@@ -23,28 +25,54 @@ exports.createOrderGet = async (req, res) => {
 
 exports.orderCreation = async (req, res) => {
   if (!req.body) {
-    return res.status(400).json({ status: false, message: "the order is not found" });
+    return res.status(400).json({
+      status: false,
+      message: "Order data not found"
+    });
   }
+
   try {
-    const orderData = {
-      tableNumber: req.body.tableNumber,
-      items: req.body.items,
+    const { tableNumber, items } = req.body;
+
+    // 🔥 STEP 1: Save order (with full array)
+    const order = await Order.create({
+      tableNumber,
+      items,
       status: "pending"
-    }
-    const order = new Order(orderData);
-    await order.save();
-    await printOrder(order);
+    });
+
+    // 🔥 STEP 2: Convert items → separate docs
+    const orderItemsData = items.map(item => ({
+      order_id: order._id,
+      product_id: item.product_id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+      volume: item.volume,
+      pegs: item.pegs,
+      type: item.type
+    }));
+
+    // 🔥 STEP 3: Insert into OrderItem collection
+    await OrderItem.insertMany(orderItemsData);
+
+    // 🔥 STEP 4: (optional) print preview
+    await printOrder(order, true);
 
     res.status(200).json({
-      message: "Order created successfully",
-      order
+      success: true,
+      message: "Order + items stored successfully",
+      orderId: order._id
     });
+
   } catch (error) {
+    console.error(error);
     res.status(500).json({
+      status: false,
       error: error.message
     });
   }
-}
+};
 exports.createOrder = async (req, res) => {
   try {
     const order = new Order(req.body);

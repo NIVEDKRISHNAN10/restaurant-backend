@@ -4,7 +4,9 @@ const orderSchema = new mongoose.Schema({
   tableNumber: Number,
   items: [
     {
-      product_id: Number,
+      product_id: String,
+      name: String,
+      price: Number,
       volume: {type: String , required: false,},
       quantity: Number,
       pegs : { type : Number, required: false, },
